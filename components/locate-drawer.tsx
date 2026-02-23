@@ -48,6 +48,38 @@ export function LocateDrawer({
   const [noSignalCountdown, setNoSignalCountdown] = useState<number | null>(null)
   const [hasDetectedSignal, setHasDetectedSignal] = useState(false)
 
+  // Get reads for the selected TID in specific mode
+  const readsForSelectedTid = useMemo(() => {
+    if (mode !== 'specific-tid') return []
+    return reads.filter((r) => r.tid === selectedTid)
+  }, [mode, selectedTid, reads])
+
+  // Get latest RSSI for display
+  const displayRssi = useMemo(() => {
+    if (mode === 'specific-tid') {
+      return readsForSelectedTid[readsForSelectedTid.length - 1]?.rssi || null
+    }
+    return getStrongestCandidate()?.rssi || null
+  }, [mode, readsForSelectedTid])
+
+  // Compute strongest candidate in "nearest-sku" mode
+  const getStrongestCandidate = () => {
+    if (mode !== 'nearest-sku') return null
+
+    const candidateTids = new Set(candidateTags.map((t) => t.tid))
+    let strongest = null
+    let strongestRssi = -Infinity
+
+    reads.forEach((read) => {
+      if (candidateTids.has(read.tid) && read.rssi > strongestRssi) {
+        strongest = read
+        strongestRssi = read.rssi
+      }
+    })
+
+    return strongest
+  }
+
   // Handle 60s auto-timeout
   useEffect(() => {
     if (!isLocating) {
@@ -159,38 +191,6 @@ export function LocateDrawer({
     setTimeoutCountdown(null)
     setSelectedTid(candidateTags[0]?.tid || '')
   }
-
-  // Compute strongest candidate in "nearest-sku" mode
-  const getStrongestCandidate = () => {
-    if (mode !== 'nearest-sku') return null
-
-    const candidateTids = new Set(candidateTags.map((t) => t.tid))
-    let strongest = null
-    let strongestRssi = -Infinity
-
-    reads.forEach((read) => {
-      if (candidateTids.has(read.tid) && read.rssi > strongestRssi) {
-        strongest = read
-        strongestRssi = read.rssi
-      }
-    })
-
-    return strongest
-  }
-
-  // Get reads for the selected TID in specific mode
-  const readsForSelectedTid = useMemo(() => {
-    if (mode !== 'specific-tid') return []
-    return reads.filter((r) => r.tid === selectedTid)
-  }, [mode, selectedTid, reads])
-
-  // Get latest RSSI for display
-  const displayRssi = useMemo(() => {
-    if (mode === 'specific-tid') {
-      return readsForSelectedTid[readsForSelectedTid.length - 1]?.rssi || null
-    }
-    return getStrongestCandidate()?.rssi || null
-  }, [mode, readsForSelectedTid])
 
   const currentLocatingTid =
     mode === 'specific-tid' ? selectedTid : getStrongestCandidate()?.tid

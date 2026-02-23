@@ -109,7 +109,7 @@ These assistants streamline everyday tasks and deliver intelligent solutions by 
 As of version `v1.2.X`, the following models are available for selection:
 
 - **Chat Models**
-  ```
+  \`\`\`
   * Phi-4-mini-instruct-int4-ov
   * Qwen2.5-7B-Instruct-int4-ov
   * DeepSeek-R1-Distill-Qwen-7B-int4-ov
@@ -120,23 +120,23 @@ As of version `v1.2.X`, the following models are available for selection:
   * neural-chat-7b-v3-3-int4-ov
   * notus-7b-v1-int4-ov
   * zephyr-7b-beta-int4-ov
-  ```
+  \`\`\`
 
 - **Vision Models**
-  ```  
+  \`\`\`  
   * Phi-3.5-vision-instruct-int4-ov
-  ```
+  \`\`\`
   
 - **RAG Models**
-  ``` 
+  \`\`\` 
   * bge-base-en-v1.5-int8-ov
   * bge-reranker-base-int8-ov
-  ``` 
+  \`\`\` 
 
 - **NPU Models**
-  ``` 
+  \`\`\` 
   * phi-3-mini-2k-int4_sym_g128-npu
-  ``` 
+  \`\`\` 
 
 You may also **upload your own model** or **convert models from Hugging Face directly** using the provided "Model Upload" or "Model Conversion" capabilities. Please consult the [user guide](https://aibuilder.intel.com/Intel%20AI%20Assistant%20Builder%20User%20Guide.pdf) for full details on these features.
 
