@@ -54,16 +54,8 @@ export function LocateDrawer({
     return reads.filter((r) => r.tid === selectedTid)
   }, [mode, selectedTid, reads])
 
-  // Get latest RSSI for display
-  const displayRssi = useMemo(() => {
-    if (mode === 'specific-tid') {
-      return readsForSelectedTid[readsForSelectedTid.length - 1]?.rssi || null
-    }
-    return getStrongestCandidate()?.rssi || null
-  }, [mode, readsForSelectedTid])
-
   // Compute strongest candidate in "nearest-sku" mode
-  const getStrongestCandidate = () => {
+  function getStrongestCandidate() {
     if (mode !== 'nearest-sku') return null
 
     const candidateTids = new Set(candidateTags.map((t) => t.tid))
@@ -79,6 +71,14 @@ export function LocateDrawer({
 
     return strongest
   }
+
+  // Get latest RSSI for display
+  const displayRssi = useMemo(() => {
+    if (mode === 'specific-tid') {
+      return readsForSelectedTid[readsForSelectedTid.length - 1]?.rssi || null
+    }
+    return getStrongestCandidate()?.rssi || null
+  }, [mode, readsForSelectedTid])
 
   // Handle 60s auto-timeout
   useEffect(() => {
