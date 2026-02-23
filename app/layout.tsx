@@ -11,8 +11,8 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
+  title: "TUDI RFID",
+  description: "RFID inventory management system",
   generator: "v0.app",
   icons: {
     icon: [
@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased`}>
+      <body className="font-sans antialiased">
         <DeviceConnectionProvider>
           <LocateIntentProvider>
             <InventoryProvider>{children}</InventoryProvider>

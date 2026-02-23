@@ -17,10 +17,10 @@ export function RssiMeter({ rssiDbm, label = 'Signal Strength' }: RssiMeterProps
 
   // Determine signal label and color
   const getSignalInfo = (value: number) => {
-    if (value < 25) return { label: 'Weak', color: 'text-destructive', bgColor: 'bg-destructive/20' }
-    if (value < 50) return { label: 'Fair', color: 'text-yellow-600 dark:text-yellow-400', bgColor: 'bg-yellow-100 dark:bg-yellow-950' }
-    if (value < 75) return { label: 'Good', color: 'text-blue-600 dark:text-blue-400', bgColor: 'bg-blue-100 dark:bg-blue-950' }
-    return { label: 'Strong', color: 'text-green-600 dark:text-green-400', bgColor: 'bg-green-100 dark:bg-green-950' }
+    if (value < 25) return { label: 'Weak', color: 'text-destructive', barColor: 'bg-destructive', bgColor: 'bg-destructive/20' }
+    if (value < 50) return { label: 'Fair', color: 'text-yellow-600 dark:text-yellow-400', barColor: 'bg-yellow-600 dark:bg-yellow-400', bgColor: 'bg-yellow-100 dark:bg-yellow-950' }
+    if (value < 75) return { label: 'Good', color: 'text-blue-600 dark:text-blue-400', barColor: 'bg-blue-600 dark:bg-blue-400', bgColor: 'bg-blue-100 dark:bg-blue-950' }
+    return { label: 'Strong', color: 'text-green-600 dark:text-green-400', barColor: 'bg-green-600 dark:bg-green-400', bgColor: 'bg-green-100 dark:bg-green-950' }
   }
 
   const signalInfo = getSignalInfo(normalized)
@@ -35,7 +35,7 @@ export function RssiMeter({ rssiDbm, label = 'Signal Strength' }: RssiMeterProps
       {/* Progress bar */}
       <div className="w-full bg-muted rounded-full h-3 overflow-hidden">
         <div
-          className={`h-full transition-all duration-100 ${signalInfo.color.replace('text-', 'bg-')}`}
+          className={`h-full transition-all duration-100 ${signalInfo.barColor}`}
           style={{ width: `${normalized}%` }}
         />
       </div>

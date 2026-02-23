@@ -78,7 +78,7 @@ export function LocateDrawer({
       return readsForSelectedTid[readsForSelectedTid.length - 1]?.rssi || null
     }
     return getStrongestCandidate()?.rssi || null
-  }, [mode, readsForSelectedTid])
+  }, [mode, readsForSelectedTid, reads])
 
   // Handle 60s auto-timeout
   useEffect(() => {
@@ -174,7 +174,7 @@ export function LocateDrawer({
   }, [displayRssi, isLocating, useBeep])
 
   const handleStartLocate = () => {
-    if (mode === 'specific' && !selectedTid) {
+    if (mode === 'specific-tid' && !selectedTid) {
       alert('Please select a tag to locate.')
       return
     }

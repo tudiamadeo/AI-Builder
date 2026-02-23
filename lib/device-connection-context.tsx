@@ -3,13 +3,6 @@
 import { createContext, useContext, useState, useEffect, useMemo, type ReactNode } from 'react'
 import { useDerasWebsocket, type DerasRead } from '@/lib/use-deras-websocket'
 
-export interface RssiSnapshot {
-  tid: string
-  antenna: string
-  rssi: number
-  timestamp: number
-}
-
 interface DeviceConnectionContextType {
   // Connection state
   isConnected: boolean
@@ -22,11 +15,6 @@ interface DeviceConnectionContextType {
   // Streaming data
   reads: DerasRead[]
   latestRead: DerasRead | null
-
-  // Per-tag smoothed RSSI (last 10 readings per tag)
-  rssiByTid: Map<string, RssiSnapshot[]>
-  getSmoothedRssi: (tid: string) => number | null
-  getStrongestTid: (tids: string[]) => string | null
 
   // Settings
   mockMode: boolean
