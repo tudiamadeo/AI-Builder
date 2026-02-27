@@ -1,14 +1,16 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { InventoryProvider } from "@/lib/inventory-context"
 import { DeviceConnectionProvider } from "@/lib/device-connection-context"
 import { LocateIntentProvider } from "@/lib/locate-intent-context"
+import { Geist_Mono, Montserrat as V0_Font_Montserrat, Geist_Mono as V0_Font_Geist_Mono } from 'next/font/google'
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+// Initialize fonts
+const _montserrat = V0_Font_Montserrat({ subsets: ['latin'], weight: ["100","200","300","400","500","600","700","800","900"] })
+const _geistMono = V0_Font_Geist_Mono({ subsets: ['latin'], weight: ["100","200","300","400","500","600","700","800","900"] })
 
 export const metadata: Metadata = {
   title: "TUDI RFID",
